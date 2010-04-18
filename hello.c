@@ -1,4 +1,5 @@
 #include <GL/glut.h>
+#include<stdio.h>
 
 void display(void)
 {
@@ -24,27 +25,26 @@ void display(void)
   glEnd();
   
   /* wykres funkcji */
-  glColor3f(1.0,1.0,1.0);
+  glColor3f(0.55,1.0,1.0);
   glBegin(GL_LINES);
-    glVertex3f(0.25,0.45,0.0); 
-    glVertex3f(0.65,0.55,0.0);
+    glVertex3f(1,0.0,0.0); 
+    glVertex3f(0.0,1.0,0.0);
   glEnd();
   
-  /*test*/
-  float dod=0.0;
-  int i;
-  for (i=0;i<=4;i++) {
-  glColor3f(1.0,1.0,1.0);
-  glBegin(GL_LINES);
-    glVertex3f(0.25+dod,0.45+dod,0.0); 
-    glVertex3f(0.65+2*dod,0.55+2*dod,0.0);
-  glEnd();
-  dod= dod+0.05;
-  }
   
-/* don't wait!  
- * start processing buffered OpenGL routines 
- */
+
+//   float dod=0.0;
+//   int i;
+//   for (i=0;i<=40;i++) {
+//   glColor3f(1.0,1.0,1.0);
+//   glBegin(GL_LINES);
+//     glVertex3f(0.25+dod,0.45+dod,0.1); 
+//     glVertex3f(0.65+dod,0.55+dod,0.0);
+//   glEnd();
+//   dod= dod+0.001;
+//   }
+
+
    glFlush ();
 }
 
@@ -60,8 +60,10 @@ void init (void)
 }
 
 
+	    
 int main(int argc, char** argv)
 {
+   
    glutInit(&argc, argv);
    glutInitDisplayMode (GLUT_SINGLE | GLUT_RGB);
    glutInitWindowSize (250, 250); 
