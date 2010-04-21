@@ -1,14 +1,19 @@
 #include <GL/glut.h>
 #include<stdio.h>
 
-static int b, c;
+static GLint b, c;
 
 void display(void)
 {
 
-   glClear (GL_COLOR_BUFFER_BIT);
-   int ya,yb;
-   int xa=-1,xb=1; //argumenty - trzeba policzyć dla malej wartosci, bo inaczej wyjdzie z zakresu 0.0-1.0 i wtedy nie rysuje wykresu
+  
+   glMatrixMode (GL_MODELVIEW);
+   glLoadIdentity();
+   
+   glClear (GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
+   glClearColor (0.0, 0.0, 0.0, 0.0);
+   GLint ya,yb;
+   GLint xa=50,xb=-50;
    
 
 
@@ -39,26 +44,18 @@ void display(void)
   glEnd();
   
   /* wykres funkcji */
-  glColor3f(0.55,1.0,1.0);
-  glBegin(GL_LINE_LOOP);
+  glColor3f(1.0,0.7,1.0);
+  glBegin(GL_LINES);
     glVertex2i(xa,ya); 
     glVertex2i(xb,yb);
   glEnd();
     
 
    glFlush ();
+   glutSwapBuffers();
 }
 
-void init (void) 
-{
-/* select clearing color 	*/
-   glClearColor (0.0, 0.0, 0.0, 0.0);
 
-/* initialize viewing values  */
-   glMatrixMode(GL_PROJECTION);
-   glLoadIdentity();
-   gluOrtho2D(50,50,50,50);
-}
 
 
 	    
@@ -70,12 +67,15 @@ int main(int argc, char** argv)
    
    
    glutInit(&argc, argv);
-   glutInitDisplayMode (GLUT_SINGLE | GLUT_RGB);
-   glutInitWindowSize (250, 250); 
+   glutInitDisplayMode (GLUT_SINGLE| GLUT_RGB);
+   glutInitWindowSize (500, 500); 
    glutInitWindowPosition (200, 300);
    glutCreateWindow ("hello");
    glutFullScreen();
-   init ();
+   glViewport(0, 0, 500, 500);
+   glMatrixMode(GL_PROJECTION);
+   glLoadIdentity();
+   gluOrtho2D(-50,50,-50,50);
    glutDisplayFunc(display); 
    glutMainLoop();
    
