@@ -1,23 +1,22 @@
 #include <GL/glut.h>
 #include<stdio.h>
 
-static float b, c;
+static int b, c;
 
 void display(void)
 {
-/* clear all pixels  */
+
    glClear (GL_COLOR_BUFFER_BIT);
-   float b1,c1; //statica chyba nie mozna modyfikowac; 
-   float ya,yb;
-   float xa=0.00,xb=1; //argumenty - trzeba policzyć dla malej wartosci, bo inaczej wyjdzie z zakresu 0.0-1.0 i wtedy nie rysuje wykresu
+   int ya,yb;
+   int xa=-1,xb=1; //argumenty - trzeba policzyć dla malej wartosci, bo inaczej wyjdzie z zakresu 0.0-1.0 i wtedy nie rysuje wykresu
    
-   b1 = b/100;
-   c1 = c/100;
+
+
    /*
    obliczamy dwa punkty nalezace do wykresu funkcji liniowej
    */
-   ya = b1*xa+c1;
-   yb = b1*xb+c1;
+   ya = b*xa+c;
+   yb = b*xb+c;
    
    
    
@@ -28,37 +27,24 @@ void display(void)
  /* linia osi igrekow */
   glColor3f(1.0,1.0,1.0);
   glBegin(GL_LINES);
-    glVertex3f(0.50,0.0,0.0); 
-    glVertex3f(0.50,1.0,0.0);
+    glVertex2i(0,50); 
+    glVertex2i(0,-50);
   glEnd();
   
   /* linia osi iksow */
   glColor3f(1.0,1.0,1.0);
   glBegin(GL_LINES);
-    glVertex3f(0.0,0.50,0.0); 
-    glVertex3f(1.0,0.50,0.0);
+    glVertex2i(50,0); 
+    glVertex2i(-50,0);
   glEnd();
   
   /* wykres funkcji */
   glColor3f(0.55,1.0,1.0);
-  glBegin(GL_LINES);
-    glVertex3f(xa,ya,0.0); 
-    glVertex3f(xb,yb,0.0);
+  glBegin(GL_LINE_LOOP);
+    glVertex2i(xa,ya); 
+    glVertex2i(xb,yb);
   glEnd();
-  
-  
-
-//   float dod=0.0;
-//   int i;
-//   for (i=0;i<=40;i++) {
-//   glColor3f(1.0,1.0,1.0);
-//   glBegin(GL_LINES);
-//     glVertex3f(0.25+dod,0.45+dod,0.1); 
-//     glVertex3f(0.65+dod,0.55+dod,0.0);
-//   glEnd();
-//   dod= dod+0.001;
-//   }
-
+    
 
    glFlush ();
 }
@@ -71,7 +57,7 @@ void init (void)
 /* initialize viewing values  */
    glMatrixMode(GL_PROJECTION);
    glLoadIdentity();
-   glOrtho(0.0, 1.0, 0.0, 1.0, -1.0, 1.0);
+   gluOrtho2D(50,50,50,50);
 }
 
 
@@ -79,8 +65,8 @@ void init (void)
 int main(int argc, char** argv)
 {
    
-   scanf ("%f", &b);
-   scanf ("%f", &c);
+   scanf ("%d", &b);
+   scanf ("%d", &c);
    
    
    glutInit(&argc, argv);
